@@ -7,7 +7,13 @@ import (
 )
 
 func main() {
-	te := peer2peer.NewTCPTransport(":4000")
+	options := peer2peer.TCPTransportOptions{
+		ListenAddress: ":4000",
+		ShakeHands:    peer2peer.NOPHandShake,
+		Decoder:       peer2peer.DefaultDecoder{},
+	}
+
+	te := peer2peer.NewTCPTransport(options)
 
 	if err := te.ListenAndAccept(); err != nil {
 		log.Fatal(err)
